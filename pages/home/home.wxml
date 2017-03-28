@@ -1,0 +1,118 @@
+<view class="container">
+
+    <text>hello mama</text>
+
+    <!--
+    数据绑定
+    -->
+    <text>普通数据绑定  {{message}}</text>
+
+     <!--
+    组件属性
+    -->
+    <view id="item-{{id}}"></view>
+
+     <!--
+        控制属性
+    -->
+    <view wx:if="{{condition}}">控制属性</view>
+    
+     <!--
+        关键字
+     -->
+    <checkbox checked="{{false}}"></checkbox>
+
+     <!--
+       三元运算 
+    -->
+    <view hidden="{{flag?true:false}}">hidden</view>
+
+     <!--
+        算数运算
+    -->
+    <view>{{a+b}}+{{c}}+3</view>
+
+     <!--
+        逻辑判断
+    -->
+    <view wx:if="{{length>5}}"></view>
+
+     <!--
+        字符串运算
+    -->
+    <view>{{"hello  "+name}}</view>
+
+     <!--
+       数组路径运算 
+    -->
+    <view>{{object.key}} {{array[0].key}}</view>
+ 
+    <!--
+        
+    -->
+    <view wx:for="{{[zero,1,2,3,4]}}">{{item}}</view>
+
+    <template is="objectCombine" data="{{for: a, bar: b}}"></template>
+    <view>以下是条件渲染</view>
+    <view wx:if="{{condition}}">true </view>
+    <view wx:if="{{length>2}}">2</view>
+    <block wx:if="{{condition}}">
+        <view>22</view>
+        <view>33</view>
+    </block>
+
+    <view hidden="{{!condition}}">555</view>
+
+    <view wx:for="{{listAnimal}}">
+        {{index}}:{{item.name}}
+    </view>
+  
+    <view class="d-view" wx:for="{{listAnimal}}" wx:for-idnex="id" wx:for-item="animal">
+        {{id}}:{{animal.name}}
+    </view>
+
+    <!--
+    wx:for嵌套 
+    -->
+    <view wx:for="{{[1,2,3,4,5,6]}}" wx:for-item="i">
+        <view wx:for="{{[1,2,3,4,5,6]}}" wx:for-item="j">
+            <view wx:if="{{i<=j}}">
+                {{i}}*{{j}}={{i*j}}
+            </view>
+        </view>
+    </view>
+
+    <block wx:for="{{[1, 2, 3]}}">
+        <view> {{index}}: </view>
+        <view> {{item}} </view>
+    </block>
+
+    <switch wx:for="{{objectArray}}" wx:key="unique"  style="display: block;">
+        {{item.id}} 
+    </switch>
+    <button bindtap="switch"> Switch </button>
+    <button bindtap="addToFront"> 
+        Add to the front       
+    </button>
+
+<switch wx:for="{{numberArray}}" wx:key="*this" style="display: block;"> {{item}} </switch>
+<button bindtap="addNumberToFront"> Add to the front </button>
+<!--
+模板定义与使用
+-->
+<template name="msgItem">
+   <view >{{index}}:{{msg}}</view>
+   <view class="d-view">time:{{time}}</view>
+</template>
+<template is="msgItem" data="{{...item}}"></template>
+
+<!--
+模板的条件加载
+-->
+<template name="tempA"> A </template>
+<template name="tempB"> B </template>
+<block wx:for="{{[1,2,3,4,5]}}">
+    <template is="{{item%2==0?'tempA':'tempB'}}"></template>
+</block>
+
+</view>
